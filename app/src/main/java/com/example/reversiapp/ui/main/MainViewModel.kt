@@ -22,6 +22,22 @@ class MainViewModel @Inject constructor() : ViewModel() {
                     it.copy(currentTurnColor = StoneColor.White)
                 }
             }
+            is MainEvent.OnTapCell -> {
+                val currentTurnColor = _state.value.currentTurnColor
+                val stoneList = _state.value.stonesData.toMutableList()
+                stoneList[event.stone.index] =
+                    event.stone.copy(
+                        colorName = currentTurnColor
+                    )
+                _state.update {
+                    it.copy(
+                        currentTurnColor =
+                            if (currentTurnColor == StoneColor.White) StoneColor.Black
+                            else StoneColor.White,
+                        stonesData = stoneList
+                    )
+                }
+            }
             else -> {}
         }
     }
