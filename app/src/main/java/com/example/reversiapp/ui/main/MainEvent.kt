@@ -3,6 +3,15 @@ package com.example.reversiapp.ui.main
 import com.example.reversiapp.data.Stone
 
 sealed interface MainEvent {
+
+    /**
+     * Screen確認時イベント
+     */
+    data class CheckScreenSize(
+        val screenWidth: Int,
+        val screenHeight: Int
+    ) : MainEvent
+
     /**
      * Settings画面への遷移時イベント
      */

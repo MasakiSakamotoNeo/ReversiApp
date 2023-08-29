@@ -14,11 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.reversiapp.data.Stone
+import com.example.reversiapp.data.StoneColor
 import com.example.reversiapp.ui.Screen
 
 @Composable
@@ -39,7 +42,7 @@ fun MainScreen(
 @Composable
 fun MainContent(
     state: MainState,
-    onEvent: (MainEvent) -> Unit
+    onEvent: (MainEvent) -> Unit = {}
 ) {
 
     Column(
@@ -66,6 +69,12 @@ fun MainContent(
 
 @Composable
 fun Board(state: MainState, onEvent: (MainEvent) -> Unit) {
+    // 画面サイズの取得
+    val screenHeight = LocalConfiguration.current.screenHeightDp
+    val screenWidth = LocalConfiguration.current.screenWidthDp
+    // 画面確認イベントの実行
+    onEvent(MainEvent.CheckScreenSize(screenWidth, screenHeight))
+
     Cell(
         stone = state.stonesData[0],
         onEvent = onEvent
@@ -94,4 +103,10 @@ fun Cell(stone: Stone, onEvent: (MainEvent) -> Unit) {
                 )
         )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainContentPreview() {
+    MainContent(state = MainState())
 }

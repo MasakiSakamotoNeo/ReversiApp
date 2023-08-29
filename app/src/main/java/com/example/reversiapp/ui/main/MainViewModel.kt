@@ -1,6 +1,7 @@
 package com.example.reversiapp.ui.main
 
 import androidx.lifecycle.ViewModel
+import com.example.reversiapp.data.StoneColor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,6 +38,9 @@ class MainViewModel @Inject constructor() : ViewModel() {
                         stonesData = stoneList
                     )
                 }
+            }
+            is MainEvent.CheckScreenSize -> {
+                // TODO: 
             }
             else -> {}
         }
